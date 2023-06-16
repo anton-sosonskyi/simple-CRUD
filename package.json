@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://anton-sosonskyi.github.io/",
+  "homepage": "https://anton-sosonskyi.github.io/simple-CRUD",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
