@@ -1,5 +1,5 @@
 import { TextField } from '@mui/material';
-import { Control, Controller, FieldValues } from 'react-hook-form';
+import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 
 type Props<T extends FieldValues> = {
   name: keyof T;
@@ -14,7 +14,7 @@ export const FormTextInput= <T extends FieldValues>({
 }: Props<T>) => {
   return (
     <Controller
-      name={name}
+      name={name as Path<T>}
       control={control}
       rules={{
         required: true,

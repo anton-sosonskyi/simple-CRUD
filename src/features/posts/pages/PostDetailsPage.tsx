@@ -43,9 +43,11 @@ export const PostDetailsPage = () => {
         >
           <PostUpdateForm post={post} />
 
+          {postId && (
           <Button color="error" onClick={handlePostDelete(+postId)}>
             Delete post
           </Button>
+          )}
         </Box>
       )}
     </>
