@@ -1,6 +1,7 @@
 import { Box, Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Post } from '../types/PostType';
 import * as postsActions from '../postsSlice';
 import { PostUpdateForm } from '../components/PostUpdateForm/PostUpdateForm';
@@ -27,6 +28,7 @@ export const PostDetailsPage = () => {
   const handlePostDelete = (id: number) => async () => {
     dispatch(postsActions.deletePost(id));
     await PostsApi.removePost(id);
+    toast.success("Post deleted!");
     navigate('/');
   };
 

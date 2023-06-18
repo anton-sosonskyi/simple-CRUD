@@ -5,6 +5,9 @@ import { useAppDispatch } from '../../../../app/store/hooks';
 import { useForm } from 'react-hook-form';
 import * as postsActions from '../../postsSlice';
 import { FormTextInput } from '../../../../components/FormTextInput';
+import { toast } from 'react-toastify';
+import { useYupValidationResolver } from '../../../../hooks/useYupValidationResolver';
+import { validationSchema } from '../../../../utils/schema';
 
 type Props = {
   post: Post;
@@ -13,6 +16,7 @@ type Props = {
 export const PostUpdateForm: React.FC<Props> = ({
   post: { id, title, body },
 }) => {
+  const resolver = useYupValidationResolver(validationSchema);
   const {
     handleSubmit,
     control,
@@ -21,12 +25,14 @@ export const PostUpdateForm: React.FC<Props> = ({
       title,
       body,
     },
+    resolver,
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const onSubmit = async (data: Partial<Post>) => {
     dispatch(postsActions.updatePost({ id, ...data }));
+    toast.success("Post updated!");
     navigate('/');
   };
 

@@ -10,11 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { useCallback } from 'react';
 import * as yup from "yup";
 import { useYupValidationResolver } from '../../../../hooks/useYupValidationResolver';
-
-const validationSchema = yup.object({
-  title: yup.string().required("Required").min(5),
-  body: yup.string().required("Required").min(5)
-});
+import { toast } from 'react-toastify';
+import { validationSchema } from '../../../../utils/schema';
 
 export const PostCreateForm = () => {
   const resolver = useYupValidationResolver(validationSchema);
@@ -34,6 +31,7 @@ export const PostCreateForm = () => {
     };
 
     dispatch(postsActions.add(newPost));
+    toast.success("Post created!");
     await PostsApi.createPost(data);
     navigate('/');
   }, []);
