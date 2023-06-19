@@ -23,7 +23,7 @@ export const PostDetailsPage = () => {
       const serverData = await PostsApi.getPost(+postId);
       setPost(serverData);
     })();
-  }, []);
+  }, [postId]);
 
   const handlePostDelete = (id: number) => async () => {
     dispatch(postsActions.deletePost(id));

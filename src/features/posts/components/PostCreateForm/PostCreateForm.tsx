@@ -1,4 +1,7 @@
+import { useCallback } from 'react';
 import { Button, FormControl } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { PostsApi } from '../../api/posts-api';
 import { useAppDispatch } from '../../../../app/store/hooks';
@@ -6,12 +9,9 @@ import { Post, PostForm } from '../../types/PostType';
 import * as postsActions from '../../postsSlice';
 import { useForm } from 'react-hook-form';
 import { FormTextInput } from '../../../../components/FormTextInput';
-import { v4 as uuidv4 } from 'uuid';
-import { useCallback } from 'react';
-import * as yup from "yup";
 import { useYupValidationResolver } from '../../../../hooks/useYupValidationResolver';
-import { toast } from 'react-toastify';
-import { validationSchema } from '../../../../utils/schema';
+import { validationSchema } from './PostCreateForm.schema';
+
 
 export const PostCreateForm = () => {
   const resolver = useYupValidationResolver(validationSchema);

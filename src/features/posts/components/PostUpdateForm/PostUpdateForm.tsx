@@ -1,13 +1,14 @@
+import { useEffect } from 'react';
 import { Button, FormControl } from '@mui/material';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { Post } from '../../types/PostType';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { useForm } from 'react-hook-form';
 import * as postsActions from '../../postsSlice';
 import { FormTextInput } from '../../../../components/FormTextInput';
-import { toast } from 'react-toastify';
 import { useYupValidationResolver } from '../../../../hooks/useYupValidationResolver';
-import { validationSchema } from '../../../../utils/schema';
+import { validationSchema } from './PostUpdateFrom.schema';
 
 type Props = {
   post: Post;
@@ -20,6 +21,7 @@ export const PostUpdateForm: React.FC<Props> = ({
   const {
     handleSubmit,
     control,
+    reset,
   } = useForm({
     defaultValues: {
       title,
@@ -29,6 +31,13 @@ export const PostUpdateForm: React.FC<Props> = ({
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    reset({
+      title,
+      body,
+    })
+  }, [id, title, body])
 
   const onSubmit = async (data: Partial<Post>) => {
     dispatch(postsActions.updatePost({ id, ...data }));
